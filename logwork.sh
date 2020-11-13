@@ -35,7 +35,7 @@
 
 JIRA_USER="YOUR_USERNAME"
 JIRA_TOKEN="YOUR_TOKEN/PASSWORD"
-DOMAIN="COMPANY_DOMAIN"
+DOMAIN="COMPANY_DOMAIN.atlassian.net"
 
 # Make a temp file for capturing output if one does not exist.
 [ ! -d "/tmp/logwork" ] && mkdir /tmp/logwork
@@ -114,7 +114,7 @@ curl -s -D- \
   -u $JIRA_USER:$JIRA_TOKEN \
   -X POST -H "Content-Type: application/json" \
   -d '{"comment":"Work was done","started":"'$FORMATTED_DATE'","timeSpentSeconds":'$TIME_SECONDS'}' \
-  https://$DOMAIN.atlassian.net/rest/api/2/issue/$TICKET/worklog \
+  https://$DOMAIN/rest/api/2/issue/$TICKET/worklog \
   > /tmp/logwork/$LOG_FILE
 
 STATUS=$(head -n 1 /tmp/logwork/$LOG_FILE | sed -E -e "s/^HTTP\/2 ([0-9]+)/\1/")
